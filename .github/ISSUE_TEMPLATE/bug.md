@@ -19,7 +19,7 @@ labels: bug
 <!-- What actually happens? -->
 
 ## Affected Milestone
-<!-- Which milestone does the broken code belong to? e.g. M3 - Social & Notification Layer -->
+<!-- Which milestone does the broken code belong to? e.g. M4 - Café Vertical Slice -->
 
 ## Relevant Code
 <!-- Optional. Paste a snippet or link to the file/line. -->

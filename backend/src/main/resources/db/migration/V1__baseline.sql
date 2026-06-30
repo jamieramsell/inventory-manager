@@ -1,0 +1,5 @@
+-- Baseline migration.
+--
+-- The real schema arrives in M1 (the org hierarchy and the resource ledger).
+-- This empty baseline establishes the Flyway schema-history table so that later
+-- migrations have a version 1 to build on. See docs/ROADMAP.md.

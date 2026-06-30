@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.14</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>dev.jamieramsell</groupId>
+	<artifactId>inventory-manager</artifactId>
+	<version>0.1.0</version>
+	<name>inventory-manager</name>
+	<description>Unified inventory, POS, and rota platform — backend</description>
+
+	<properties>
+		<java.version>21</java.version>
+		<checkstyle.version>10.17.0</checkstyle.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- Flyway owns the schema. flyway-database-postgresql is required for
+		     PostgreSQL support on Flyway 10+. Versions are managed by the Spring
+		     Boot parent. -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-database-postgresql</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Tests run against a real PostgreSQL via Testcontainers, so `verify`
+		     needs a running Docker daemon (present on CI and locally). -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- Generate Javadoc into the repo-root docs/ folder during `package`. The
+			     javadoc goal always writes into an `apidocs` subdirectory of
+			     outputDirectory, so the HTML lands in docs/apidocs/ (the pom lives in
+			     backend/, hence ../docs). -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${project.basedir}/../docs</outputDirectory>
+					<source>21</source>
+					<!-- Lint Javadoc via doclint. `all,-missing` enables the reference,
+					     syntax, html and accessibility checks (so broken {@link}/@see/@param
+					     targets and malformed tags fail the build) but does NOT demand a
+					     comment on every element. Formatting of comments that DO exist is
+					     owned by checkstyle/google_checks; doclint owns correctness of refs.
+					     failOnWarnings turns any doclint warning into a build failure. -->
+					<doclint>all,-missing</doclint>
+					<failOnWarnings>true</failOnWarnings>
+				</configuration>
+				<executions>
+					<execution>
+						<id>generate-javadoc</id>
+						<phase>package</phase>
+						<goals>
+							<goal>javadoc</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Enforce the Google Java Style Guide during `verify`. google_checks.xml
+			     ships inside the Checkstyle jar, so no local config file is needed.
+			     Google's checks are emitted at severity "warning", so violationSeverity
+			     is lowered to warning to make any style violation fail the build. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>3.4.0</version>
+				<dependencies>
+					<dependency>
+						<groupId>com.puppycrawl.tools</groupId>
+						<artifactId>checkstyle</artifactId>
+						<version>${checkstyle.version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<!-- The project follows the Google Java Style Guide wholesale, with no
+					     project-specific suppressions layered over google_checks.xml. -->
+					<configLocation>google_checks.xml</configLocation>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
+					<failOnViolation>true</failOnViolation>
+					<violationSeverity>warning</violationSeverity>
+				</configuration>
+				<executions>
+					<execution>
+						<id>checkstyle-check</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

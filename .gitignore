@@ -62,3 +62,8 @@ $RECYCLE.BIN/
 .env
 .env.local
 *.secret
+
+# ===========================
+# Generated docs (Javadoc)
+# ===========================
+docs/apidocs/

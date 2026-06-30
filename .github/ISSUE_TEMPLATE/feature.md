@@ -8,7 +8,7 @@ labels: feature
 <!-- One or two sentences. What is this, and why does it exist? -->
 
 ## Milestone
-<!-- Which milestone does this work towards? e.g. M2 - Core Domain Logic -->
+<!-- Which milestone does this work towards? e.g. M1 - Resource Ledger Core -->
 
 ## Acceptance Criteria
 <!-- What must be true for this issue to be closed? Write these as checkboxes. -->

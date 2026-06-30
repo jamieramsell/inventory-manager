@@ -6,7 +6,7 @@
 Closes #
 
 ## Milestone
-<!-- Which milestone does this work towards? e.g. M2 - Core Domain Logic -->
+<!-- Which milestone does this work towards? e.g. M1 - Resource Ledger Core -->
 
 ## Changes
 <!-- Briefly list what you changed and why. This is not a git log- you must explain decisions, not just actions. -->

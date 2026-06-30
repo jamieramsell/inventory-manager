@@ -1,0 +1,21 @@
+# Local PostgreSQL for the inventory-manager backend.
+#
+#   docker compose up -d      # start Postgres in the background
+#   docker compose down       # stop it (data is kept in the named volume)
+#
+# Credentials and database name match backend/src/main/resources/application.properties.
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: inventory-postgres
+    environment:
+      POSTGRES_DB: inventory
+      POSTGRES_USER: inventory
+      POSTGRES_PASSWORD: inventory
+    ports:
+      - "5432:5432"
+    volumes:
+      - inventory-pgdata:/var/lib/postgresql/data
+
+volumes:
+  inventory-pgdata:
