@@ -98,13 +98,13 @@ inventory-manager/
 
 ## Getting Started
 
-> The `backend` Maven skeleton runs now (M0 in progress). The till client is not yet scaffolded — it arrives by **M4**.
+> The `backend` (Spring Boot) and `till-client` (Vite + React PWA) skeletons both run now (M0 in progress). Offline support and the full POS flow arrive over M3–M11.
 
 ### Prerequisites
 
 - Java 21+
 - Docker (for local PostgreSQL, and for the Testcontainers-based tests)
-- Node.js (LTS) for the TypeScript till client *(once it exists)*
+- Node.js 22+ for the TypeScript till client
 
 ### Running the backend (Java / Maven)
 
@@ -122,7 +122,9 @@ cd backend
 ```bash
 cd till-client
 npm install
-npm run dev                   # local dev server
+npm run dev                   # local dev server (proxies /ping to the backend)
+npm run lint                  # gts — Google TypeScript Style (lint + format check)
+npm run build                 # type-check and production build
 ```
 
 ---

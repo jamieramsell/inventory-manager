@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  backend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -23,6 +23,27 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      # `verify` compiles, runs the JUnit suite, and runs Checkstyle in one pass.
+      # `verify` compiles, runs the JUnit suite (Testcontainers Postgres), and
+      # runs Checkstyle + Javadoc doclint in one pass.
       - name: Build, test and lint
         run: ./mvnw -B verify
+
+  till-client:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: till-client
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: till-client/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      # gts enforces the Google TypeScript Style Guide (lint + Prettier format).
+      - name: Lint (gts / Google TS style)
+        run: npm run lint
+      - name: Build
+        run: npm run build

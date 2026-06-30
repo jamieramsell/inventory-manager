@@ -146,11 +146,13 @@ Google guide forbids it).
 
 ## Current State
 
-The repository is **early-stage**. The `backend/` Maven + Spring Boot skeleton now
-exists (M0 in progress): package-per-context layout, PostgreSQL + JPA + Flyway,
+The repository is **early-stage** (M0 in progress). The `backend/` Maven + Spring
+Boot skeleton exists: package-per-context layout, PostgreSQL + JPA + Flyway,
 Checkstyle/Google style, a `/ping` endpoint, and a Testcontainers context-load
-test. The `till-client/` (TypeScript PWA) is not yet scaffolded. The design is
-settled — the unified resource-ledger
+test. The `till-client/` (Vite + React + TypeScript PWA) is scaffolded too: a
+trivial till page that calls `/ping` via a dev proxy, a web-app manifest, and
+`gts` enforcing Google TypeScript style (service workers / offline deferred to
+M11). CI builds both subprojects. The design is settled — the unified resource-ledger
 abstraction, the modular-monolith backend, and a TypeScript PWA till — and
 implementation is sequenced by an M0–M14 roadmap. Key design decisions:
 

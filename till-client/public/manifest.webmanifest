@@ -1,0 +1,16 @@
+{
+  "name": "inventory-manager till",
+  "short_name": "Till",
+  "description": "Point-of-sale till for the inventory-manager platform.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00608a",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
