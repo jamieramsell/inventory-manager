@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
@@ -30,3 +30,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/)
   on every pull request with concurrency cancel on push
 - `manage-blocked-label.yml` workflow keeps the `blocked` label in sync with
   open issue dependencies
+
+[Unreleased]: https://github.com/jamieramsell/inventory-manager/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/jamieramsell/inventory-manager/releases/tag/v0.1.0
